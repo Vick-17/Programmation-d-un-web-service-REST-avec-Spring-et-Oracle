@@ -1,20 +1,18 @@
 
 services:
   app:
-    entrypoint: [ "sleep", "infinity" ]
     build: .
-    init: true
+    command: ["java","-jar","/app/app.jar"] 
     depends_on:
       oracle_db:
         condition: service_healthy
     environment:
-      DB_URL: jdbc:oracle:thin:@oracle_db:1521/FREEPDB1  # ← service DNS, pas localhost
-      DB_USERNAME: data
-      DB_PASSWORD: iie254007
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//oracle_db:1521/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: data
+      SPRING_DATASOURCE_PASSWORD: iie254007
 
   oracle_db:
-    image: gvenzl/oracle-free:23-slim    # ← multi-arch ARM/AMD64
-    container_name: oracle_db
+    image: gvenzl/oracle-free:23-slim
     environment:
       ORACLE_PASSWORD: iie254007
       APP_USER: data

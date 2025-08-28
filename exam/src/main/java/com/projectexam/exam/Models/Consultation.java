@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.projectexam.exam.Generic.BaseDto;
+import com.projectexam.exam.Generic.BaseEntity;
 
 @Entity
 @Table(name = "consultation")
-public class Consultation extends BaseDto {
+public class Consultation extends BaseEntity {
 
     @Column(name = "date_consult", nullable = false)
     private LocalDate date;
