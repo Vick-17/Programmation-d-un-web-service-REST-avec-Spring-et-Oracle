@@ -2,6 +2,8 @@ package com.projectexam.exam.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MedecinRepository extends JpaRepository<MedecinRepository, Long> {
+import com.projectexam.exam.Models.Medecin;
+
+public interface MedecinRepository extends JpaRepository<Medecin, Long> {
     
 }
