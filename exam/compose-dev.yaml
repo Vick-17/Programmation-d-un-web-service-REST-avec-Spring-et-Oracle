@@ -1,40 +1,31 @@
-version: '3.8'
 
 services:
   app:
     entrypoint: [ "sleep", "infinity" ]
     build: .
     init: true
-    volumes:
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
     depends_on:
       oracle_db:
         condition: service_healthy
-    # (optionnel) variables que ton app peut lire
     environment:
-      DB_URL: jdbc:oracle:thin:@localhost:1521/XEPDB1
-      DB_USERNAME: data                   # même valeur que APP_USER
+      DB_URL: jdbc:oracle:thin:@oracle_db:1521/FREEPDB1  # ← service DNS, pas localhost
+      DB_USERNAME: data
       DB_PASSWORD: iie254007
 
   oracle_db:
-    image: gvenzl/oracle-xe:21-slim
+    image: gvenzl/oracle-free:23-slim    # ← multi-arch ARM/AMD64
     container_name: oracle_db
     environment:
-      # Mot de passe pour SYS/SYSTEM (obligatoire)
       ORACLE_PASSWORD: iie254007
-      # Création d’un utilisateur applicatif (schéma) au démarrage
       APP_USER: data
       APP_USER_PASSWORD: iie254007
       ORACLE_CHARACTERSET: AL32UTF8
     volumes:
-      - oracle_db_data:/opt/oracle/oradata   # persistance des données
+      - oracle_db_data:/opt/oracle/oradata
     ports:
-      - "1521:1521"   # listener Oracle
-      - "5500:5500"   # (facultatif) EM Express si activé
+      - "1521:1521"
     healthcheck:
-      test: ["CMD-SHELL", "echo 'SELECT 1 FROM dual;' | sqlplus -s system/${ORACLE_PASSWORD}@//localhost:1521/XEPDB1 || exit 1"]
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM dual;' | sqlplus -s system/${ORACLE_PASSWORD}@//localhost:1521/FREEPDB1 || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
