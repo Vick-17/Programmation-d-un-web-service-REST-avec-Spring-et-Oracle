@@ -17,6 +17,6 @@ public class Prescription extends BaseEntity {
     private Medicament medicament;
 
     @Column(name = "nb_prises", nullable = false)
-    private Integer nbPrises;
+    private int nbPrises;
 
 }
