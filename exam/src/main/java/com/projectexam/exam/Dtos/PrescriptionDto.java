@@ -11,7 +11,7 @@ import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class Prescription extends BaseDto implements Serializable {
+public class PrescriptionDto extends BaseDto implements Serializable {
     
     Consultation consultation;
 
