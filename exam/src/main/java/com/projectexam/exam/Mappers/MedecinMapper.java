@@ -6,7 +6,7 @@ import com.projectexam.exam.Dtos.MedecinDto;
 import com.projectexam.exam.Generic.GenericMapper;
 import com.projectexam.exam.Models.Medecin;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MedecinMapper extends GenericMapper<MedecinDto, Medecin> {
     
 }
