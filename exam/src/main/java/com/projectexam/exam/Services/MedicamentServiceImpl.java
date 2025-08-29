@@ -9,7 +9,7 @@ import com.projectexam.exam.Models.Medicament;
 import com.projectexam.exam.Repositories.MedicamentRepository;
 
 @Service
-public class MedicamentServiceImpl extends GenericServiceImpl<Medicament, MedicamentDto, Integer, MedicamentRepository, MedicamentMapper> implements MedicamentService {
+public class MedicamentServiceImpl extends GenericServiceImpl<Medicament, MedicamentDto, Long, MedicamentRepository, MedicamentMapper> implements MedicamentService {
     
     public MedicamentServiceImpl(MedicamentRepository repository, MedicamentMapper mapper) {
         super(repository, mapper);

@@ -9,7 +9,7 @@ import com.projectexam.exam.Models.Consultation;
 import com.projectexam.exam.Repositories.ConsultationRepository;
 
 @Service
-public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, ConsultationDto, Integer, ConsultationRepository, ConsultationMapper> implements ConsultationService {
+public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, ConsultationDto, Long, ConsultationRepository, ConsultationMapper> implements ConsultationService {
 
     public ConsultationServiceImpl(ConsultationRepository repository, ConsultationMapper mapper) {
         super(repository, mapper);
