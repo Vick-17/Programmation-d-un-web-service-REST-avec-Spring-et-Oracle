@@ -3,11 +3,14 @@ package com.projectexam.exam.Models;
 import jakarta.persistence.*;
 import java.util.List;
 
-import com.projectexam.exam.Generic.BaseEntity;
-
 @Entity
 @Table(name = "medecin")
-public class Medecin extends BaseEntity {
+public class Medecin {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "matricule")
+    private long matricule;
 
     @Column(name = "nom_med", nullable = false)
     private String nomMED;

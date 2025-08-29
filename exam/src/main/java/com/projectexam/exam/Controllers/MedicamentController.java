@@ -9,7 +9,7 @@ import com.projectexam.exam.Services.MedicamentService;
 
 @RestController
 @RequestMapping("/medicament")
-public class MedicamentController extends GenericController<MedicamentDto, MedicamentService> {
+public class MedicamentController extends GenericController<MedicamentDto, Integer, MedicamentService> {
 
     public MedicamentController(MedicamentService service){
         super(service);

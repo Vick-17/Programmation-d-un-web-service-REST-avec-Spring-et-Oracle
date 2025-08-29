@@ -9,7 +9,7 @@ import com.projectexam.exam.Services.PrescriptionService;
 
 @RestController
 @RequestMapping("/prescription")
-public class PrescriptionController extends GenericController<PrescriptionDto, PrescriptionService> {
+public class PrescriptionController extends GenericController<PrescriptionDto, Long, PrescriptionService> {
 
     public PrescriptionController(PrescriptionService service) {
         super(service);

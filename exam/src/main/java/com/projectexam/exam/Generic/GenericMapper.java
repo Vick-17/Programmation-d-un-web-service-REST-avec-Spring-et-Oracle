@@ -1,6 +1,6 @@
 package com.projectexam.exam.Generic;
 
-public interface GenericMapper<D extends BaseDto, E extends BaseEntity> {
+public interface GenericMapper<D, E> {
 
     D toDto(E entity);
 

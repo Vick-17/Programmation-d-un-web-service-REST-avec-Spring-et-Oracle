@@ -5,12 +5,12 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface GenericService<D extends BaseDto> {
+public interface GenericService<D, ID> {
     Page<D> findAll(Pageable pageable);
 
     D saveOrUpdate(D user);
 
-    Optional<D> findById(long id);
+    Optional<D> findById(ID id);
 
-    void deleteById(long id);
+    void deleteById(ID id);
 }

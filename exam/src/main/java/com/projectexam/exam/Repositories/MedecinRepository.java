@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.projectexam.exam.Models.Medecin;
 
-public interface MedecinRepository extends JpaRepository<Medecin, Long> {
+public interface MedecinRepository extends JpaRepository<Medecin, Integer> {
     
 }

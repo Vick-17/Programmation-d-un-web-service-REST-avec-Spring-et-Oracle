@@ -7,14 +7,17 @@ import lombok.experimental.Accessors;
 
 import java.util.Set;
 
-import com.projectexam.exam.Generic.BaseEntity;
-
 @Getter
 @Setter
 @Accessors(chain = true)
 @Entity
 @Table(name = "medicament")
-public class Medicament extends BaseEntity {
+public class Medicament {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "code")
+    private long code;
 
     @Column(name = "libelle", nullable = false)
     private String libelle;

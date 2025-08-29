@@ -2,16 +2,13 @@ package com.projectexam.exam.Dtos;
 
 import java.io.Serializable;
 
-import com.projectexam.exam.Generic.BaseDto;
 import com.projectexam.exam.Models.Consultation;
 import com.projectexam.exam.Models.Medicament;
 
-import lombok.EqualsAndHashCode;
 import lombok.Value;
 
-@EqualsAndHashCode(callSuper = true)
 @Value
-public class PrescriptionDto extends BaseDto implements Serializable {
+public class PrescriptionDto implements Serializable {
     
     Consultation consultation;
 

@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.projectexam.exam.Generic.BaseEntity;
-
 @Entity
 @Table(name = "consultation")
-public class Consultation extends BaseEntity {
+public class Consultation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "numero")
+    private long numero;
 
     @Column(name = "date_consult", nullable = false)
     private LocalDate date;

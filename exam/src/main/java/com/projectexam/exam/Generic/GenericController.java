@@ -1,5 +1,6 @@
 package com.projectexam.exam.Generic;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
-public abstract class GenericController<D extends BaseDto, S extends GenericService<D>> {
+public abstract class GenericController<D, ID, S extends GenericService<D, ID>> {
     protected S service;
 
     @GetMapping
@@ -18,19 +19,20 @@ public abstract class GenericController<D extends BaseDto, S extends GenericServ
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<D> getById(@PathVariable long id) {
+    public ResponseEntity<D> getById(@PathVariable ID id) {
         return ResponseEntity.of(service.findById(id));
     }
 
     @RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT })
-    public ResponseEntity<D> saveOrUpdate(@RequestBody D dto) {
+    public ResponseEntity<D> saveOrUpdate(@RequestBody D dto, HttpServletRequest request) {
+        boolean isPost = "POST".equalsIgnoreCase(request.getMethod());
         return ResponseEntity
-                .status(dto.getId() == 0 ? HttpStatus.CREATED : HttpStatus.OK)
+                .status(isPost ? HttpStatus.CREATED : HttpStatus.OK)
                 .body(service.saveOrUpdate(dto));
     }
 
     @DeleteMapping("{id}")
-    public void deleteById(@PathVariable long id) {
+    public void deleteById(@PathVariable ID id) {
         service.deleteById(id);
     }
 }
