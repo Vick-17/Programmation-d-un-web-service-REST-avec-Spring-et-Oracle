@@ -24,6 +24,8 @@ public abstract class GenericServiceImpl<E, D, ID, R extends JpaRepository<E, ID
         return toDto(repository.saveAndFlush(toEntity(dto)));
     }
 
+    
+
     @Override
     public Optional<D> findById(ID id) {
         return repository.findById(id).map(this::toDto);

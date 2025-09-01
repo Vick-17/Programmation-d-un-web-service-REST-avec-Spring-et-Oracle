@@ -1,9 +1,16 @@
 package com.projectexam.exam.Models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 import java.time.LocalDate;
 import java.util.Set;
 
+@Getter
+@Setter
+@Accessors(chain = true)
 @Entity
 @Table(name = "consultation")
 public class Consultation {
@@ -11,7 +18,7 @@ public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numero")
-    private long numero;
+    private Long numero;
 
     @Column(name = "date_consult", nullable = false)
     private LocalDate date;

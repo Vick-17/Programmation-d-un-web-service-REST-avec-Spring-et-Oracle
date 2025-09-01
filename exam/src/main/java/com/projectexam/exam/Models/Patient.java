@@ -22,12 +22,14 @@ import lombok.experimental.Accessors;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "n_ss")
-    private long nSS;
+    @Column(name = "n_ss", unique = true)
+    private Long nSS;
 
     @Column(name = "nom_pat", nullable = false)
     private String nomPAT;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @OneToMany(mappedBy = "patient")
     private List<Consultation> consultations;

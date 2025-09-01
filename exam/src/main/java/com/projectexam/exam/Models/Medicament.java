@@ -17,7 +17,7 @@ public class Medicament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
-    private long code;
+    private Long code;
 
     @Column(name = "libelle", nullable = false)
     private String libelle;

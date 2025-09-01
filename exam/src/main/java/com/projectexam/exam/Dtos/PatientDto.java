@@ -3,15 +3,13 @@ package com.projectexam.exam.Dtos;
 import java.io.Serializable;
 import java.util.List;
 
-import com.projectexam.exam.Models.Consultation;
-
 import lombok.Value;
 
 @Value
 public class PatientDto implements Serializable {
     
     int nSS;
-    String nomPat;
-    List<Consultation> consultations;
+    String nomPAT;
+    List<ConsultationDto> consultations;
 
 }
