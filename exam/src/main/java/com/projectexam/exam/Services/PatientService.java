@@ -7,5 +7,7 @@ import com.projectexam.exam.Generic.GenericService;
 public interface PatientService extends GenericService<PatientDto, Long> {
 
     PatientDto createPatient(PatientCreateDto request);
+
+    PatientDto searchPatByNomPat(String nomPAT);
     
 }

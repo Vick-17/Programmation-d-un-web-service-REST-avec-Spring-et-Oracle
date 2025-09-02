@@ -1,5 +1,7 @@
 package com.projectexam.exam.Controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,4 +23,10 @@ public class PatientController extends GenericController<PatientDto, Long, Patie
     public PatientDto createPatient(@RequestBody PatientCreateDto request){
         return service.createPatient(request);
     }
+
+    @GetMapping("/search/{nomPAT}")
+    public PatientDto searchPatient(@PathVariable String nomPAT) {
+        return service.searchPatByNomPat(nomPAT);
+    }
+
 }

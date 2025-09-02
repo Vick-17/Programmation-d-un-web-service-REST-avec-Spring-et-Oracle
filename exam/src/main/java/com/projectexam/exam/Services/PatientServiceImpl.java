@@ -19,8 +19,7 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
         super(repository, mapper);
     }
 
-@Override
-
+    @Override
     public PatientDto createPatient(PatientCreateDto patient) {
         if (patient == null) {
             throw new IllegalArgumentException("Requête invalide");
@@ -45,6 +44,12 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
         entity.setPassword(bCryptPasswordEncoder.encode(patient.getPassword()));
         Patient saved = repository.saveAndFlush(entity);
         return mapper.toDto(saved);
+    }
+
+    @Override
+    public PatientDto searchPatByNomPat(String nomPat) {
+        Optional<Patient> optionalPatient = repository.findByNomPAT(nomPat);
+        return optionalPatient.map(mapper::toDto).orElse(null);
     }
 
 }
