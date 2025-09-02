@@ -1,5 +1,9 @@
 package com.projectexam.exam.Services;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.projectexam.exam.Dtos.ConsultationDto;
@@ -15,4 +19,8 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
         super(repository, mapper);
     }
     
+    @Override
+    public Page<ConsultationDto> searchConsultByNomPAT(String nomPAT, Pageable pageable) {
+        return repository.findByPatient_NomPATIgnoreCase(nomPAT, pageable).map(mapper::toDto);
+    }
 }
