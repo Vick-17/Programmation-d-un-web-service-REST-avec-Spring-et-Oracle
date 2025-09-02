@@ -8,7 +8,7 @@ import lombok.Value;
 @Value
 public class PatientDto implements Serializable {
     
-    int nSS;
+    Long nSS;
     String nomPAT;
     List<ConsultationDto> consultations;
 

@@ -9,8 +9,8 @@ import lombok.Value;
 @Value
 public class MedecinDto implements Serializable {
     
-    int matricule;
+    Long matricule;
     String nomMED;
-    List<Consultation> consultations;
+    List<ConsultationDto> consultations;
     
 }

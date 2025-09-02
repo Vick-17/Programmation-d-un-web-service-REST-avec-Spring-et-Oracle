@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface MedecinRepository extends JpaRepository<Medecin, Long> {
     Optional<Medecin> findByMatricule(Long matricule);
+
+    Optional<Medecin> findByNomMED(String nomMED);
 }

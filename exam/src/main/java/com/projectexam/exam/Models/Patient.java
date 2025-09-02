@@ -2,6 +2,7 @@ package com.projectexam.exam.Models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ public class Patient {
     @Column(name = "nom_pat", nullable = false)
     private String nomPAT;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 

@@ -10,9 +10,9 @@ import lombok.Value;
 @Value
 public class PrescriptionDto implements Serializable {
     
-    Consultation consultation;
+    ConsultationDto consultation;
 
-    Medicament medicament;
+    MedicamentDto medicament;
 
     int nbPrises;
 }
