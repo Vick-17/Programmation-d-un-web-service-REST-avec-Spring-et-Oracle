@@ -25,5 +25,7 @@ public interface ConsultationService extends GenericService<ConsultationDto, Lon
     ConsultationDto updateConsultation(Long numero, com.projectexam.exam.CreateDtos.ConsultationCreateDto update);
 
     ConsultationDto attachDocument(Long numero, MultipartFile file);
+
+    Resource getDocument(Long numero);
     
 }

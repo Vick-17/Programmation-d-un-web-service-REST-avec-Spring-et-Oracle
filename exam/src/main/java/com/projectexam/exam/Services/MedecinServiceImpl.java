@@ -2,6 +2,8 @@ package com.projectexam.exam.Services;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,19 @@ public class MedecinServiceImpl extends GenericServiceImpl<Medecin, MedecinDto, 
     public MedecinDto searchMedByName(String nomMED) {
         Optional<Medecin> optionalMedecin = repository.findByNomMED(nomMED);
         return optionalMedecin.map(mapper::toDto).orElse(null);
+    }
+
+    @Override
+    public Page<MedecinDto> searchMedecins(String search, Pageable pageable) {
+        if (search == null || search.isBlank()) {
+            return repository.findAll(pageable).map(mapper::toDto);
+        }
+        try {
+            Long matricule = Long.parseLong(search.trim());
+            return repository.findByMatricule(matricule, pageable).map(mapper::toDto);
+        } catch (NumberFormatException e) {
+            return repository.findByNomMEDContainingIgnoreCase(search.trim(), pageable).map(mapper::toDto);
+        }
     }
 
 }

@@ -27,6 +27,7 @@ import com.projectexam.exam.Repositories.MedicamentRepository;
 import com.projectexam.exam.Repositories.MedecinRepository;
 import com.projectexam.exam.Repositories.PatientRepository;
 import com.projectexam.exam.Services.Filestorage.FileStorageService;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -229,5 +230,16 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
         consultation.setDocument(stored);
         var saved = repository.saveAndFlush(consultation);
         return toDto(saved);
+    }
+
+    @Override
+    public Resource getDocument(Long numero) {
+        var consultation = repository.findById(numero)
+                .orElseThrow(() -> new IllegalArgumentException("Consultation introuvable"));
+        String stored = consultation.getDocument();
+        if (stored == null || stored.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Document non disponible");
+        }
+        return fileStorageService.loadAsResource(stored);
     }
 }

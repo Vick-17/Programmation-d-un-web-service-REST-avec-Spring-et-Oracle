@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaTypeFactory;
 
 import com.projectexam.exam.CreateDtos.ConsultationCreateDto;
 import com.projectexam.exam.Dtos.ConsultationDto;
@@ -49,5 +55,15 @@ public class ConsultationController extends GenericController<ConsultationDto, L
     @PostMapping(value = "/{numero}/document", consumes = {"multipart/form-data"})
     public ConsultationDto attachDocument(@PathVariable Long numero, @RequestPart("file") MultipartFile file) {
         return service.attachDocument(numero, file);
+    }
+
+    @GetMapping("/{numero}/document")
+    public ResponseEntity<Resource> getDocument(@PathVariable Long numero) {
+        Resource resource = service.getDocument(numero);
+        MediaType mediaType = MediaTypeFactory.getMediaType(resource).orElse(MediaType.APPLICATION_OCTET_STREAM);
+        return ResponseEntity.ok()
+                .contentType(mediaType)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 }

@@ -2,6 +2,8 @@ package com.projectexam.exam.Services;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,20 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
     public PatientDto searchPatByNomPat(String nomPat) {
         Optional<Patient> optionalPatient = repository.findByNomPAT(nomPat);
         return optionalPatient.map(mapper::toDto).orElse(null);
+    }
+
+    @Override
+    public Page<PatientDto> searchPatients(String search, Pageable pageable) {
+        if (search == null || search.isBlank()) {
+            return repository.findAll(pageable).map(mapper::toDto);
+        }
+        // déterminer si la recherche est un NSS numérique
+        try {
+            Long nss = Long.parseLong(search.trim());
+            return repository.findBynSS(nss, pageable).map(mapper::toDto);
+        } catch (NumberFormatException e) {
+            return repository.findByNomPATContainingIgnoreCase(search.trim(), pageable).map(mapper::toDto);
+        }
     }
 
 }
