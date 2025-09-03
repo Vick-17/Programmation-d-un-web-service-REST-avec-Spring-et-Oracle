@@ -26,6 +26,8 @@ import com.projectexam.exam.Repositories.ConsultationRepository;
 import com.projectexam.exam.Repositories.MedicamentRepository;
 import com.projectexam.exam.Repositories.MedecinRepository;
 import com.projectexam.exam.Repositories.PatientRepository;
+import com.projectexam.exam.Services.Filestorage.FileStorageService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, ConsultationDto, Long, ConsultationRepository, ConsultationMapper> implements ConsultationService {
@@ -33,14 +35,16 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     private final MedecinRepository medecinRepository;
     private final PatientRepository patientRepository;
     private final MedicamentRepository medicamentRepository;
+    private final FileStorageService fileStorageService;
 
     public ConsultationServiceImpl(ConsultationRepository repository, ConsultationMapper mapper,
                                    MedecinRepository medecinRepository, PatientRepository patientRepository,
-                                   MedicamentRepository medicamentRepository) {
+                                   MedicamentRepository medicamentRepository, FileStorageService fileStorageService) {
         super(repository, mapper);
         this.medecinRepository = medecinRepository;
         this.patientRepository = patientRepository;
         this.medicamentRepository = medicamentRepository;
+        this.fileStorageService = fileStorageService;
     }
     
     @Override
@@ -190,6 +194,39 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
             }
         }
 
+        var saved = repository.saveAndFlush(consultation);
+        return toDto(saved);
+    }
+
+    @Override
+    public ConsultationDto attachDocument(Long numero, MultipartFile file) {
+        var consultation = repository.findById(numero)
+                .orElseThrow(() -> new IllegalArgumentException("Consultation introuvable"));
+
+        java.time.LocalDate today = java.time.LocalDate.now();
+        if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Consultation passée: modification interdite");
+        }
+
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("Fichier requis");
+        }
+
+        // Construire un nom de fichier stable: hash + extension
+        String filename;
+        var hashOpt = fileStorageService.getStorageHash(file);
+        String ext = fileStorageService.mimeTypeToExtension(file.getContentType());
+        if (hashOpt.isPresent()) {
+            filename = hashOpt.get() + ext;
+        } else {
+            // fallback: original filename sécurisé
+            String original = file.getOriginalFilename();
+            if (original == null || original.isBlank()) original = "document" + ext;
+            filename = original;
+        }
+
+        String stored = fileStorageService.store(file, filename);
+        consultation.setDocument(stored);
         var saved = repository.saveAndFlush(consultation);
         return toDto(saved);
     }

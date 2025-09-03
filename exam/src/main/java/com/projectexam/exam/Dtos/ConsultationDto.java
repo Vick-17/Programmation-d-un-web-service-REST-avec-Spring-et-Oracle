@@ -14,5 +14,6 @@ public class ConsultationDto implements Serializable {
     MedecinDto medecin;
     PatientDto patient;
     Set<PrescriptionDto> prescriptions;
+    String document;
 
 }

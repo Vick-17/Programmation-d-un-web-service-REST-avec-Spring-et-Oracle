@@ -9,6 +9,8 @@ import com.projectexam.exam.CreateDtos.ConsultationCreateDto;
 import com.projectexam.exam.Dtos.ConsultationDto;
 import com.projectexam.exam.Dtos.MedicamentDto;
 import com.projectexam.exam.Generic.GenericService;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
 
 public interface ConsultationService extends GenericService<ConsultationDto, Long> {
 
@@ -21,5 +23,7 @@ public interface ConsultationService extends GenericService<ConsultationDto, Lon
     ConsultationDto addPrescription(Long numero, List<MedicamentDto> medicament);
 
     ConsultationDto updateConsultation(Long numero, com.projectexam.exam.CreateDtos.ConsultationCreateDto update);
+
+    ConsultationDto attachDocument(Long numero, MultipartFile file);
     
 }

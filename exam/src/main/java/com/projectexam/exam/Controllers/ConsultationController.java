@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.projectexam.exam.CreateDtos.ConsultationCreateDto;
 import com.projectexam.exam.Dtos.ConsultationDto;
@@ -42,5 +44,10 @@ public class ConsultationController extends GenericController<ConsultationDto, L
     @PutMapping("/{numero}")
     public ConsultationDto updateConsultation(@PathVariable Long numero, @RequestBody ConsultationCreateDto update) {
         return service.updateConsultation(numero, update);
+    }
+
+    @PostMapping(value = "/{numero}/document", consumes = {"multipart/form-data"})
+    public ConsultationDto attachDocument(@PathVariable Long numero, @RequestPart("file") MultipartFile file) {
+        return service.attachDocument(numero, file);
     }
 }

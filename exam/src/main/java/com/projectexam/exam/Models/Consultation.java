@@ -34,4 +34,7 @@ public class Consultation {
     @OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Prescription> prescriptions;
 
+    @Column(name = "document")
+    private String document;
+
 }
