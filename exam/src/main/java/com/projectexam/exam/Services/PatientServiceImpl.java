@@ -14,6 +14,15 @@ import com.projectexam.exam.Mappers.PatientMapper;
 import com.projectexam.exam.Models.Patient;
 import com.projectexam.exam.Repositories.PatientRepository;
 
+/**
+ * Implémentation du service de gestion des patients.
+ * <p>
+ * Responsabilités principales:
+ * - Encodage du mot de passe lors de la création
+ * - Validation des données d’entrée
+ * - Vérification d’unicité du NSS
+ * - Recherche paginée par nom ou NSS
+ */
 @Service
 public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, Long, PatientRepository, PatientMapper> implements PatientService {
     
@@ -21,6 +30,9 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
         super(repository, mapper);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PatientDto createPatient(PatientCreateDto patient) {
         if (patient == null) {
@@ -31,7 +43,6 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
             throw new RuntimeException("Le nSS est déjà utilisée.");
         }
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        
 
         if (patient.getPassword() == null || patient.getPassword().isBlank()) {
             throw new IllegalArgumentException("Le mot de passe est requis.");
@@ -48,18 +59,24 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
         return mapper.toDto(saved);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PatientDto searchPatByNomPat(String nomPat) {
         Optional<Patient> optionalPatient = repository.findByNomPAT(nomPat);
         return optionalPatient.map(mapper::toDto).orElse(null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Page<PatientDto> searchPatients(String search, Pageable pageable) {
         if (search == null || search.isBlank()) {
             return repository.findAll(pageable).map(mapper::toDto);
         }
-        // déterminer si la recherche est un NSS numérique
+        // Déterminer si la recherche correspond à un NSS numérique
         try {
             Long nss = Long.parseLong(search.trim());
             return repository.findBynSS(nss, pageable).map(mapper::toDto);
