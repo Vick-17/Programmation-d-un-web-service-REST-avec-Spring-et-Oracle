@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -64,13 +65,9 @@ public class FileStorageServiceImpl implements FileStorageService {
         try {
             Files.createDirectories(rootLocation);
 
-            // logging d'information s'affichant dans la console en utilisant le formatage
-            // d'une chaîne de caractères
-            // pou plus d'informations sur le fonctionnement du formatage d'une chaîne en
-            // utilisant la classe "Logger"
-            // de slf4j veuillez vous référer à la ressource suivante :
-            // https://examples.javacodegeeks.com/java-development/enterprise-java/slf4j/slf4j-format-string-example/
-            LOGGER.info("Chemin de sauvegarde des fichiers {}", rootLocation.toAbsolutePath().toString());
+            // OK : SLF4J formate et appelle toString() automatiquement
+            LOGGER.info("Chemin de sauvegarde des fichiers {}", rootLocation.toAbsolutePath());
+
         } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
@@ -217,8 +214,8 @@ public class FileStorageServiceImpl implements FileStorageService {
                 // tableau d'octets
                 // Nous utiliserons la classe "ByteArrayOutputStream" pour se faire
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                outputStream.write(file.getOriginalFilename().getBytes());
-                outputStream.write(file.getContentType().getBytes());
+                outputStream.write(Objects.toString(file.getOriginalFilename(), "").getBytes());
+                outputStream.write(Objects.toString(file.getContentType(), "").getBytes());
                 LocalDate date = LocalDate.now();
                 outputStream.write(date.toString().getBytes());
 

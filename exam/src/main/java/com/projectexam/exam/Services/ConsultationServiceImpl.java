@@ -56,6 +56,8 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
         this.fileStorageService = fileStorageService;
     }
     
+    private String CONSULTATION_NOT_FOUND = "Consultation introuvable";
+
     @Override
     public Page<ConsultationDto> searchConsultByNomPAT(String nomPAT, Pageable pageable) {
         return repository.findByPatient_NomPATIgnoreCase(nomPAT, pageable).map(mapper::toDto);
@@ -136,7 +138,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public ConsultationDto addPrescription(Long numero, List<MedicamentDto> medicaments) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new NotFoundException("Consultation introuvable"));
+                .orElseThrow(() -> new NotFoundException(CONSULTATION_NOT_FOUND));
 
         java.time.LocalDate today = java.time.LocalDate.now();
         if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {
@@ -171,7 +173,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public ConsultationDto updateConsultation(Long numero, com.projectexam.exam.CreateDtos.ConsultationCreateDto update) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new NotFoundException("Consultation introuvable"));
+                .orElseThrow(() -> new NotFoundException(CONSULTATION_NOT_FOUND));
 
         LocalDate today = java.time.LocalDate.now();
         if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {
@@ -210,7 +212,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public ConsultationDto attachDocument(Long numero, MultipartFile file) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new NotFoundException("Consultation introuvable"));
+                .orElseThrow(() -> new NotFoundException(CONSULTATION_NOT_FOUND));
 
         java.time.LocalDate today = java.time.LocalDate.now();
         if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {
@@ -243,7 +245,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public Resource getDocument(Long numero) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new IllegalArgumentException("Consultation introuvable"));
+                .orElseThrow(() -> new IllegalArgumentException(CONSULTATION_NOT_FOUND));
         String stored = consultation.getDocument();
         if (stored == null || stored.isBlank()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Document non disponible");
