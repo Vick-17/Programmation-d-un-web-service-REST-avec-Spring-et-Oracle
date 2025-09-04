@@ -1,5 +1,10 @@
 package com.projectexam.exam.Mappers;
 
+/**
+ * MapStruct mapper pour Patient ⇄ PatientDto.
+ * Ignore la liste des consultations pour éviter les boucles.
+ */
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

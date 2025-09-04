@@ -1,5 +1,10 @@
 package com.projectexam.exam.Models;
 
+/**
+ * Entité JPA Prescription.
+ * Représente l'association Consultation ↔ Médicament et la quantité (nbPrises).
+ */
+
 import com.projectexam.exam.Generic.BaseEntity;
 
 import jakarta.persistence.*;

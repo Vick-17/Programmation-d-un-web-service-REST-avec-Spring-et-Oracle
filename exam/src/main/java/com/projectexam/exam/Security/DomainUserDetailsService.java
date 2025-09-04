@@ -1,5 +1,10 @@
 package com.projectexam.exam.Security;
 
+/**
+ * UserDetailsService domaine: recherche des utilisateurs par identifiant
+ * numérique (NSS patient ou matricule médecin) et construction des rôles.
+ */
+
 import com.projectexam.exam.Models.Medecin;
 import com.projectexam.exam.Models.Patient;
 import com.projectexam.exam.Repositories.MedecinRepository;

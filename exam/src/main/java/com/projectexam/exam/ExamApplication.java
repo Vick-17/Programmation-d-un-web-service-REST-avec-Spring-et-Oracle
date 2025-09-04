@@ -1,5 +1,9 @@
 package com.projectexam.exam;
 
+/**
+ * Point d'entrée Spring Boot de l'application.
+ */
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

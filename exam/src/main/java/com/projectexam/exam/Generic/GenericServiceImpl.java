@@ -1,5 +1,10 @@
 package com.projectexam.exam.Generic;
 
+/**
+ * Implémentation générique basée sur Spring Data JPA et un {@link GenericMapper}
+ * pour convertir Entities ⇄ DTOs.
+ */
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

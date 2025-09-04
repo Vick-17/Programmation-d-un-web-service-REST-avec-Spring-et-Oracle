@@ -1,5 +1,10 @@
 package com.projectexam.exam.Security;
 
+/**
+ * Filtre d'autorisation: extrait le JWT Bearer, valide, et
+ * peuple le SecurityContext pour les requêtes authentifiées.
+ */
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

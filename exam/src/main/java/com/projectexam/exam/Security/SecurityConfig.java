@@ -1,5 +1,10 @@
 package com.projectexam.exam.Security;
 
+/**
+ * Configuration Spring Security: CORS + CSRF désactivé, sessions stateless,
+ * filtres JWT d'authentification et d'autorisation, et règles d'accès.
+ */
+
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;

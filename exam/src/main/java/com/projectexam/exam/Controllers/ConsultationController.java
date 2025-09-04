@@ -1,5 +1,11 @@
 package com.projectexam.exam.Controllers;
 
+/**
+ * Contrôleur REST pour la ressource Consultation.
+ * Expose recherche par patient, création/mise à jour/suppression,
+ * et upload/download d'un document attaché.
+ */
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +30,8 @@ import com.projectexam.exam.Dtos.ConsultationDto;
 import com.projectexam.exam.Generic.GenericController;
 import com.projectexam.exam.Services.ConsultationService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/consultation")
 public class ConsultationController extends GenericController<ConsultationDto, Long, ConsultationService> {
@@ -43,12 +51,12 @@ public class ConsultationController extends GenericController<ConsultationDto, L
     }
 
     @PostMapping("/create")
-    public ConsultationDto createConsultation(@RequestBody ConsultationCreateDto consultation) {
+    public ConsultationDto createConsultation(@Valid @RequestBody ConsultationCreateDto consultation) {
         return service.createConsultation(consultation);
     }
 
     @PutMapping("/{numero}")
-    public ConsultationDto updateConsultation(@PathVariable Long numero, @RequestBody ConsultationCreateDto update) {
+    public ConsultationDto updateConsultation(@PathVariable Long numero, @Valid @RequestBody ConsultationCreateDto update) {
         return service.updateConsultation(numero, update);
     }
 

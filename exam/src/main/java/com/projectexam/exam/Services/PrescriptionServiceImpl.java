@@ -1,5 +1,9 @@
 package com.projectexam.exam.Services;
 
+/**
+ * Implémentation du service Prescription (CRUD générique via GenericServiceImpl).
+ */
+
 import org.springframework.stereotype.Service;
 
 import com.projectexam.exam.Dtos.PrescriptionDto;

@@ -1,5 +1,9 @@
 package com.projectexam.exam.Dtos;
 
+/**
+ * DTO en lecture pour Consultation.
+ */
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;

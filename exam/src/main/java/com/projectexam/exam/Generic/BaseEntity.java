@@ -1,5 +1,10 @@
 package com.projectexam.exam.Generic;
 
+/**
+ * BaseEntity utilitaire (héritée par certaines entités comme Prescription)
+ * pouvant porter un identifiant technique ou des méta-informations communes.
+ */
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

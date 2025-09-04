@@ -1,5 +1,10 @@
 package com.projectexam.exam.Mappers;
 
+/**
+ * MapStruct mapper pour Prescription ⇄ PrescriptionDto.
+ * Ignore la référence inverse vers Consultation pour casser la récursion.
+ */
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

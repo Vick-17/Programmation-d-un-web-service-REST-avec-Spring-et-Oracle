@@ -1,5 +1,10 @@
 package com.projectexam.exam.Models;
 
+/**
+ * Entité JPA représentant un patient.
+ * Clé primaire fonctionnelle: NSS. Un patient peut avoir plusieurs consultations.
+ */
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

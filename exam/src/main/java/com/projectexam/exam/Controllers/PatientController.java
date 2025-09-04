@@ -16,10 +16,11 @@ import com.projectexam.exam.Dtos.PatientDto;
 import com.projectexam.exam.Generic.GenericController;
 import com.projectexam.exam.Services.PatientService;
 
+import jakarta.validation.Valid;
+
 /**
  * Endpoints REST pour la ressource Patient.
- * <p>
- * Hérite des opérations CRUD génériques via {@link GenericController} et expose
+ * Hérite des opérations CRUD génériques via GenericController et expose
  * des cas d’usage spécifiques: inscription et recherche paginée.
  */
 @RestController
@@ -36,7 +37,7 @@ public class PatientController extends GenericController<PatientDto, Long, Patie
      * @return patient créé
      */
     @PostMapping("/register")
-    public PatientDto createPatient(@RequestBody PatientCreateDto request){
+    public PatientDto createPatient(@Valid @RequestBody PatientCreateDto request){
         return service.createPatient(request);
     }
 

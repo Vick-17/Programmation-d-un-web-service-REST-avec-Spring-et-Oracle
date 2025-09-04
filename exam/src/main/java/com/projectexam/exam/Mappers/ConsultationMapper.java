@@ -1,5 +1,10 @@
 package com.projectexam.exam.Mappers;
 
+/**
+ * MapStruct mapper pour Consultation ⇄ ConsultationDto.
+ * Utilise d'autres mappers pour éviter les cycles.
+ */
+
 import org.mapstruct.Mapper;
 
 import com.projectexam.exam.Dtos.ConsultationDto;

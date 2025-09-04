@@ -1,5 +1,9 @@
 package com.projectexam.exam.Generic;
 
+/**
+ * Base pour les DTOs porteurs d'un identifiant technique commun.
+ */
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 

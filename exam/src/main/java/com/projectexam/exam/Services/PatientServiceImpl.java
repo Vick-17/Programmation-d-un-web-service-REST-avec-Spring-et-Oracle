@@ -13,6 +13,7 @@ import com.projectexam.exam.Generic.GenericServiceImpl;
 import com.projectexam.exam.Mappers.PatientMapper;
 import com.projectexam.exam.Models.Patient;
 import com.projectexam.exam.Repositories.PatientRepository;
+import com.projectexam.exam.Errors.ConflictException;
 
 /**
  * Implémentation du service de gestion des patients.
@@ -40,7 +41,7 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, PatientDto, 
         }
         Optional<Patient> optionalPatient = repository.findBynSS(patient.getNSS());
         if (optionalPatient.isPresent()) {
-            throw new RuntimeException("Le nSS est déjà utilisée.");
+            throw new ConflictException("Le NSS est déjà utilisé");
         }
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

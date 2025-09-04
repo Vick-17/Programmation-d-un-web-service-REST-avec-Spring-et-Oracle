@@ -1,5 +1,10 @@
 package com.projectexam.exam.Security;
 
+/**
+ * Filtre d'authentification: lit les identifiants JSON, tente l'auth,
+ * et retourne les JWT (access/refresh) dans les en-têtes.
+ */
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;

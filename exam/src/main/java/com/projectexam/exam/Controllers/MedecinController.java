@@ -1,5 +1,10 @@
 package com.projectexam.exam.Controllers;
 
+/**
+ * Contrôleur REST pour la ressource Médecin.
+ * Fournit l'inscription, la recherche exacte et la recherche paginée.
+ */
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +21,8 @@ import com.projectexam.exam.Dtos.MedecinDto;
 import com.projectexam.exam.Generic.GenericController;
 import com.projectexam.exam.Services.MedecinService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/medecin")
 public class MedecinController extends GenericController<MedecinDto, Long, MedecinService> {
@@ -25,7 +32,7 @@ public class MedecinController extends GenericController<MedecinDto, Long, Medec
     }
 
     @PostMapping("/register")
-    public MedecinDto createMedecin(@RequestBody MedecinCreateDto medecin) {
+    public MedecinDto createMedecin(@Valid @RequestBody MedecinCreateDto medecin) {
         return service.createMedecin(medecin);
     }
 

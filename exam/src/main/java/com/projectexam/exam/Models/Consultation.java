@@ -1,5 +1,11 @@
 package com.projectexam.exam.Models;
 
+/**
+ * Entité JPA Consultation.
+ * Lie un médecin et un patient à une date donnée et peut comporter
+ * des prescriptions ainsi qu'un document joint.
+ */
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

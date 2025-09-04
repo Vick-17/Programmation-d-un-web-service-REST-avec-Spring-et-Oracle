@@ -1,5 +1,10 @@
 package com.projectexam.exam.Controllers;
 
+/**
+ * Contrôleur REST minimal pour la ressource Médicament.
+ * Hérite des opérations génériques via GenericController.
+ */
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

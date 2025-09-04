@@ -1,5 +1,9 @@
 package com.projectexam.exam.Dtos;
 
+/**
+ * DTO en lecture pour Patient (NSS, nom, et consultations associées).
+ */
+
 import java.io.Serializable;
 import java.util.List;
 

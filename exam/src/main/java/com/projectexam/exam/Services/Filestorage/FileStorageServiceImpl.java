@@ -27,11 +27,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 
 /**
- * Classe service s'occupant du stockage de fichiers sur le disque.
- * 
- * Les classes "service" intègrent la logique métier (tout ne doit pas être dans
- * le contrôleur).
- *
+ * Implémentation du service de stockage de fichiers (système de fichiers local).
+ * Fournit les opérations d'upload, de listing et de lecture de ressources.
  */
 @Service
 public class FileStorageServiceImpl implements FileStorageService {

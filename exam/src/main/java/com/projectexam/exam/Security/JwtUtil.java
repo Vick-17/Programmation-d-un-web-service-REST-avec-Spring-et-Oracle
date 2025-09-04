@@ -1,5 +1,9 @@
 package com.projectexam.exam.Security;
 
+/**
+ * Utilitaires de création et de parsing de JWT (access/refresh).
+ */
+
 import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;

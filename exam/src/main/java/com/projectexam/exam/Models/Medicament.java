@@ -1,5 +1,9 @@
 package com.projectexam.exam.Models;
 
+/**
+ * Entité JPA Médicament.
+ */
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

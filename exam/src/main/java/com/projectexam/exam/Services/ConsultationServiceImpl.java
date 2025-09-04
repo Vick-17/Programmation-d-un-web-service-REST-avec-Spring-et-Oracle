@@ -1,5 +1,12 @@
 package com.projectexam.exam.Services;
 
+/**
+ * Implémentation du service Consultation.
+ * - applique la règle métier: une consultation passée n'est plus modifiable
+ * - construit les prescriptions (lookup des médicaments)
+ * - attache et lit un document via FileStorageService
+ */
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +33,7 @@ import com.projectexam.exam.Repositories.ConsultationRepository;
 import com.projectexam.exam.Repositories.MedicamentRepository;
 import com.projectexam.exam.Repositories.MedecinRepository;
 import com.projectexam.exam.Repositories.PatientRepository;
+import com.projectexam.exam.Errors.NotFoundException;
 import com.projectexam.exam.Services.Filestorage.FileStorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,7 +84,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
             throw new IllegalArgumentException("Patient (NSS) requis");
         }
         Patient patient = patientRepository.findBynSS(patientDto.getNSS())
-                .orElseThrow(() -> new IllegalArgumentException("Patient introuvable"));
+                .orElseThrow(() -> new NotFoundException("Patient introuvable"));
 
         Consultation entity = new Consultation();
         entity.setDate(consultation.getDate());
@@ -91,7 +99,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
                     throw new IllegalArgumentException("Code médicament requis pour chaque prescription");
                 }
                 var medicament = medicamentRepository.findById(pDto.getMedicament().getCode())
-                        .orElseThrow(() -> new IllegalArgumentException("Médicament introuvable: " + pDto.getMedicament().getCode()));
+                        .orElseThrow(() -> new NotFoundException("Médicament introuvable: " + pDto.getMedicament().getCode()));
 
                 Prescription p = new Prescription();
                 p.setConsultation(entity);
@@ -128,7 +136,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public ConsultationDto addPrescription(Long numero, List<MedicamentDto> medicaments) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new IllegalArgumentException("Consultation introuvable"));
+                .orElseThrow(() -> new NotFoundException("Consultation introuvable"));
 
         java.time.LocalDate today = java.time.LocalDate.now();
         if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {
@@ -147,7 +155,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
                 throw new IllegalArgumentException("Code médicament manquant");
             }
             var medicament = medicamentRepository.findById(mDto.getCode())
-                    .orElseThrow(() -> new IllegalArgumentException("Médicament introuvable: " + mDto.getCode()));
+                    .orElseThrow(() -> new NotFoundException("Médicament introuvable: " + mDto.getCode()));
             var p = new com.projectexam.exam.Models.Prescription();
             p.setConsultation(consultation);
             p.setMedicament(medicament);
@@ -163,7 +171,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public ConsultationDto updateConsultation(Long numero, com.projectexam.exam.CreateDtos.ConsultationCreateDto update) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new IllegalArgumentException("Consultation introuvable"));
+                .orElseThrow(() -> new NotFoundException("Consultation introuvable"));
 
         LocalDate today = java.time.LocalDate.now();
         if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {
@@ -184,7 +192,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
                         throw new IllegalArgumentException("Code médicament requis pour chaque prescription");
                     }
                     var medicament = medicamentRepository.findById(pDto.getMedicament().getCode())
-                            .orElseThrow(() -> new IllegalArgumentException("Médicament introuvable: " + pDto.getMedicament().getCode()));
+                            .orElseThrow(() -> new NotFoundException("Médicament introuvable: " + pDto.getMedicament().getCode()));
                     var p = new com.projectexam.exam.Models.Prescription();
                     p.setConsultation(consultation);
                     p.setMedicament(medicament);
@@ -202,7 +210,7 @@ public class ConsultationServiceImpl extends GenericServiceImpl<Consultation, Co
     @Override
     public ConsultationDto attachDocument(Long numero, MultipartFile file) {
         var consultation = repository.findById(numero)
-                .orElseThrow(() -> new IllegalArgumentException("Consultation introuvable"));
+                .orElseThrow(() -> new NotFoundException("Consultation introuvable"));
 
         java.time.LocalDate today = java.time.LocalDate.now();
         if (consultation.getDate() != null && consultation.getDate().isBefore(today)) {

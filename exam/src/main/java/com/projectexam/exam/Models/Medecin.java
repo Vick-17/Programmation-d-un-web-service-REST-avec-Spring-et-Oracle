@@ -1,5 +1,10 @@
 package com.projectexam.exam.Models;
 
+/**
+ * Entité JPA représentant un médecin.
+ * Identifié par son matricule. Un médecin peut donner plusieurs consultations.
+ */
+
 import jakarta.persistence.*;
 import java.util.List;
 

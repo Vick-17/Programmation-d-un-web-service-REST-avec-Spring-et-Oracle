@@ -1,5 +1,11 @@
 package com.projectexam.exam.Services;
 
+/**
+ * Implémentation du service Médecin.
+ * Valide la création (unicité matricule, encodage mot de passe)
+ * et expose la recherche paginée par nom/matricule.
+ */
+
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -14,6 +20,7 @@ import com.projectexam.exam.Mappers.MedecinMapper;
 import com.projectexam.exam.Models.Medecin;
 import com.projectexam.exam.Models.Patient;
 import com.projectexam.exam.Repositories.MedecinRepository;
+import com.projectexam.exam.Errors.ConflictException;
 
 @Service
 public class MedecinServiceImpl extends GenericServiceImpl<Medecin, MedecinDto, Long, MedecinRepository, MedecinMapper> implements MedecinService {
@@ -29,9 +36,8 @@ public class MedecinServiceImpl extends GenericServiceImpl<Medecin, MedecinDto, 
         }
 
         Optional<Medecin> optionalMedecin = repository.findByMatricule(medecin.getMatricule());
-
         if (optionalMedecin.isPresent()) {
-            throw new RuntimeException("Le matricule est déjà utiliser");
+            throw new ConflictException("Le matricule est déjà utilisé");
         }
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

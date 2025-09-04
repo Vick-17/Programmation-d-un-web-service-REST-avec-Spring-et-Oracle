@@ -1,5 +1,11 @@
 package com.projectexam.exam.Services;
 
+/**
+ * Service métier pour la gestion des consultations.
+ * Cas d'usage: recherche paginée, création avec prescriptions,
+ * mise à jour (interdite si passée), ajout et lecture de document joint.
+ */
+
 import java.util.List;
 
 import org.springframework.data.domain.Page;

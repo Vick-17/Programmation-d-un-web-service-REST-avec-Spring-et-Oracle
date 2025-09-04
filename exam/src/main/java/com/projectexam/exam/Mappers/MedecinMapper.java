@@ -1,5 +1,10 @@
 package com.projectexam.exam.Mappers;
 
+/**
+ * MapStruct mapper pour Medecin ⇄ MedecinDto.
+ * Ignore la collection de consultations pour éviter les références cycliques.
+ */
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

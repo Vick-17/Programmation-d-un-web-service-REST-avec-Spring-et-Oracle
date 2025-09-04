@@ -1,5 +1,10 @@
 package com.projectexam.exam.Generic;
 
+/**
+ * Contrôleur générique exposant les opérations CRUD courantes
+ * pour des ressources basées sur un {@link GenericService}.
+ */
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

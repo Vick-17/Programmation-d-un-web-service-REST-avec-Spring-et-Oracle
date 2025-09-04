@@ -1,5 +1,9 @@
 package com.projectexam.exam.Services;
 
+/**
+ * Implémentation du service Médicament (CRUD générique via GenericServiceImpl).
+ */
+
 import org.springframework.stereotype.Service;
 
 import com.projectexam.exam.Dtos.MedicamentDto;

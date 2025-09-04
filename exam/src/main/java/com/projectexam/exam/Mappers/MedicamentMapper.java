@@ -1,5 +1,10 @@
 package com.projectexam.exam.Mappers;
 
+/**
+ * MapStruct mapper pour Medicament ⇄ MedicamentDto.
+ * Ignore la collection de prescriptions pour éviter la récursion.
+ */
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

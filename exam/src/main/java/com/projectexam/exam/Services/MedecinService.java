@@ -1,5 +1,9 @@
 package com.projectexam.exam.Services;
 
+/**
+ * Service métier pour la gestion des médecins (création, recherche, pagination).
+ */
+
 import com.projectexam.exam.CreateDtos.MedecinCreateDto;
 import com.projectexam.exam.Dtos.MedecinDto;
 import com.projectexam.exam.Generic.GenericService;

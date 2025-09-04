@@ -1,5 +1,10 @@
 package com.projectexam.exam.Controllers;
 
+/**
+ * Contrôleur REST pour Prescription (placeholder).
+ * Les opérations principales sont gérées via Consultation.
+ */
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

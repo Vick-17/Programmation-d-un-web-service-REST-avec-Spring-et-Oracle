@@ -1,5 +1,10 @@
 package com.projectexam.exam.Repositories;
 
+/**
+ * Repository Spring Data pour Consultation.
+ * Expose des recherches par nom patient (insensible à la casse) et par NSS.
+ */
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
