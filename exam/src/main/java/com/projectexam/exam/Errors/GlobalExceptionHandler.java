@@ -8,12 +8,16 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.server.ResponseStatusException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.projectexam.exam.Services.Filestorage.StorageException;
 
@@ -23,6 +27,8 @@ import com.projectexam.exam.Services.Filestorage.StorageException;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFound(NotFoundException ex, WebRequest req) {
@@ -66,8 +72,19 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, "Malformed Request", "Requête invalide", req);
     }
 
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Object> handleNoHandler(NoHandlerFoundException ex, WebRequest req) {
+        return build(HttpStatus.NOT_FOUND, "Not Found", "Ressource introuvable", req);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Object> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex, WebRequest req) {
+        return build(HttpStatus.METHOD_NOT_ALLOWED, "Method Not Allowed", ex.getMessage(), req);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleOther(Exception ex, WebRequest req) {
+        log.error("Unhandled exception on request: {}", req.getDescription(false), ex);
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", "Erreur interne", req);
     }
 
@@ -81,4 +98,3 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(body);
     }
 }
-

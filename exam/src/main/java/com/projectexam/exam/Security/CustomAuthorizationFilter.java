@@ -81,4 +81,14 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             }
         }
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        // Ne pas filtrer la doc Swagger/OpenAPI et l'endpoint d'erreur
+        return path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.equals("/swagger-ui.html")
+                || path.equals("/error");
+    }
 }
